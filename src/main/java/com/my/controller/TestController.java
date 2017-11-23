@@ -1,5 +1,8 @@
 package com.my.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.kie.api.runtime.KieSession;
@@ -46,5 +49,26 @@ public class TestController {
 		System.out.println("触发了" + ruleFiredCount1 + "条规则");
 		kieSession.delete(f2);
 		kieSession.delete(f3);
+	}
+
+	@ResponseBody
+	@RequestMapping("/address1")
+	public void test1() {
+		Address address = new Address();
+		address.setPostcode("99425");
+		List<String> list = new ArrayList<String>();
+		AddressCheckResult result = new AddressCheckResult();
+		FactHandle f = kieSession.insert(address);
+		FactHandle f1 = kieSession.insert(result);
+		kieSession.setGlobal("myGlobalList", list);
+		int ruleFiredCount = kieSession.fireAllRules();
+		System.out.println("触发了" + ruleFiredCount + "条规则");
+		if (result.isPostCodeResult()) {
+			System.out.println("规则校验通过");
+		}
+		System.out.println(list.toString());
+		kieSession.delete(f);
+		kieSession.delete(f1);
+
 	}
 }
