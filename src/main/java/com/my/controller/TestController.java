@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.my.model.Address;
 import com.my.model.AddressCheckResult;
+import com.my.myfilter.AddressFilter;
 
 @RequestMapping("/test")
 @Controller
@@ -35,13 +36,15 @@ public class TestController {
 		kieSession.delete(f);
 		kieSession.delete(f1);
 		// 这里添加过滤器
-		// Address address1 = new Address();
-		// address1.setPostcode("2017");
-		// AddressCheckResult result1 = new AddressCheckResult();
-		// kieSession.insert(address1);
-		// kieSession.insert(result1);
-		// AddressFilter addressFilter = new AddressFilter(address1);
-		// int ruleFiredCount1 = kieSession.fireAllRules(addressFilter);
-		// System.out.println("触发了" + ruleFiredCount1 + "条规则");
+		Address address1 = new Address();
+		address1.setPostcode("2017");
+		AddressCheckResult result1 = new AddressCheckResult();
+		FactHandle f2 = kieSession.insert(address1);
+		FactHandle f3 = kieSession.insert(result1);
+		AddressFilter addressFilter = new AddressFilter(address1);
+		int ruleFiredCount1 = kieSession.fireAllRules(addressFilter);
+		System.out.println("触发了" + ruleFiredCount1 + "条规则");
+		kieSession.delete(f2);
+		kieSession.delete(f3);
 	}
 }
