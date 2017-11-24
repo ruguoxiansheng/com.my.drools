@@ -4,20 +4,15 @@ import com.my.model.Address;
 import com.my.model.AddressCheckResult;
 
 rule "myrules1"
-lock-on-active
     when
-        address : Address(postcode != null, postcode matches "([0-9]{5})")
-        checkResult : AddressCheckResult();
+         eval(true);
     then
-        checkResult.setPostCodeResult(true);
-        System.out.println("myrules1.rule");
+        System.out.println(hello("myrules1.rule"));
 end
 
 rule "2017myrules2"
     when
-        address : Address(postcode != null, postcode matches "([0-9]{5})")
-        checkResult : AddressCheckResult();
+        eval(true);
     then
-        checkResult.setPostCodeResult(true);
-        System.out.println("2017myrules2.rule");
+        System.out.println(hello("2017myrules2.rule"));
 end

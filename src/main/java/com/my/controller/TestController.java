@@ -71,4 +71,16 @@ public class TestController {
 		kieSession.delete(f1);
 
 	}
+	
+	@ResponseBody
+	@RequestMapping("/rule")
+	public void rule() {
+		Address address = new Address();
+		address.setPostcode("99425");
+		FactHandle f = kieSession.insert(address);
+		int ruleFiredCount = kieSession.fireAllRules();
+		System.out.println("触发了" + ruleFiredCount + "条规则");
+		kieSession.delete(f);
+
+	}
 }
