@@ -83,4 +83,16 @@ public class TestController {
 		kieSession.delete(f);
 
 	}
+	
+	@ResponseBody
+	@RequestMapping("/function")
+	public void function() {
+		Address address = new Address();
+		address.setPostcode("function");
+		FactHandle f = kieSession.insert(address);
+		int ruleFiredCount = kieSession.fireAllRules();
+		System.out.println("触发了" + ruleFiredCount + "条规则");
+		kieSession.delete(f);
+
+	}
 }

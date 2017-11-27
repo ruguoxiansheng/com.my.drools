@@ -5,6 +5,10 @@ import com.my.model.AddressCheckResult;
 
 global java.util.List myGlobalList;
 
+function String hello1(String name) {
+
+ return "Hello1 " + name + "!";
+}
 
 
 rule "myrules.drl-1"

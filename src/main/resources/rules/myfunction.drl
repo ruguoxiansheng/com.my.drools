@@ -3,6 +3,7 @@ package rules
 import com.my.model.Address;
 import com.my.model.AddressCheckResult;
 
+import function com.my.function.Foo.hello2
 
 function String hello(String name){
     return "Hello " + name + "!";
@@ -11,14 +12,11 @@ function String hello(String name){
 rule "myfunction.drl-1"
 lock-on-active
     when
-        address : Address(postcode != null, postcode matches "([0-9]{5})")
+        address : Address(postcode != null, postcode == "function")
     then
-        System.out.println(hello("myfunction.drl-1"));
+        
+         System.out.println(hello("myfunction.drl-1"));
+         System.out.println(hello1("myfunction.drl-1"));
+          System.out.println(hello2("myfunction.drl-1"));
 end
 
-rule "2017myfunction.drl-2"
-    when
-        address : Address(postcode != null, postcode matches "([0-9]{5})")
-    then
-        System.out.println(hello("2017myfunction.drl-2"));
-end

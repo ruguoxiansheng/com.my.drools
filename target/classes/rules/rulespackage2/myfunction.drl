@@ -1,4 +1,4 @@
-package rules
+package rules.rulespackage2
 
 import com.my.model.Address;
 import com.my.model.AddressCheckResult;
