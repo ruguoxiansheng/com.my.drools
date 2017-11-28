@@ -95,4 +95,16 @@ public class TestController {
 		kieSession.delete(f);
 
 	}
+	
+	@ResponseBody
+	@RequestMapping("/enum")
+	public void enums() {
+		Address address = new Address();
+		address.setPostcode("Monday");
+		FactHandle f = kieSession.insert(address);
+		int ruleFiredCount = kieSession.fireAllRules();
+		System.out.println("触发了" + ruleFiredCount + "条规则");
+		kieSession.delete(f);
+
+	}
 }

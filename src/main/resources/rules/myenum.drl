@@ -1,0 +1,23 @@
+package rules
+
+import com.my.model.Address;
+import com.my.model.AddressCheckResult;
+
+import function com.my.function.Foo.hello2
+
+declare enums DaysOfWeek
+   SUN("Sunday"),MON("Monday"),TUE("Tuesday"),WED("Wednesday"),THU("Thursday"),FRI("Friday"),SAT("Saturday");
+
+   fullName : String
+end
+
+
+rule "Using a declared Enum"
+lock-on-active
+    when
+        address : Address(postcode != null, postcode == DaysOfWeek.MONDAY)
+    then
+        
+          System.out.println(hello2("Using a declared Enum"));
+end
+
