@@ -1,0 +1,25 @@
+package rules
+
+import com.my.model.Address;
+import com.my.model.AddressCheckResult;
+
+import function com.my.function.Foo.hello2
+
+import java.util.Date
+
+declare Person
+    name : String
+    age : Integer
+    address : Address
+end
+
+
+rule "Using a declare"
+lock-on-active
+    when
+       person: Person(name == "Bob")
+    then
+        
+          System.out.println(hello2("Using a declare"));
+end
+

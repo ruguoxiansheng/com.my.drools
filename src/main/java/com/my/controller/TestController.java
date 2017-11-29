@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.kie.api.KieBase;
+import org.kie.api.definition.type.FactType;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.rule.FactHandle;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,9 @@ public class TestController {
 
 	@Resource
 	private KieSession kieSession;
+	
+	@Resource
+	private KieBase kieBase;
 
 	@ResponseBody
 	@RequestMapping("/address")
@@ -103,6 +108,47 @@ public class TestController {
 		address.setPostcode("Monday");
 		FactHandle f = kieSession.insert(address);
 		int ruleFiredCount = kieSession.fireAllRules();
+		System.out.println("触发了" + ruleFiredCount + "条规则");
+		kieSession.delete(f);
+
+	}
+	
+	@ResponseBody
+	@RequestMapping("/declarePerson")
+	public void declarePerson() {
+		
+		// get a reference to a knowledge base with a declared type:
+//		KieBase kbase = new ;
+		
+		// get the declared FactType
+		FactType personType = kieBase.getFactType( "rules",
+		                                         "Person" );
+
+		// handle the type as necessary:
+		// create instances:
+		Object bob = new Object();
+		try {
+			bob = personType.newInstance();
+		} catch (InstantiationException | IllegalAccessException e) {
+			System.out.println("person没有实例话成功！");
+		}
+
+		// set attributes values
+		personType.set( bob,
+		                "name",
+		                "Bob" );
+		personType.set( bob,
+		                "age",
+		                42 );
+
+		// insert fact into a session
+		FactHandle f = kieSession.insert( bob );
+		int ruleFiredCount = kieSession.fireAllRules();
+
+		// read attributes
+		String name = (String) personType.get( bob, "name" );
+		int age = (int) personType.get( bob, "age" );
+		
 		System.out.println("触发了" + ruleFiredCount + "条规则");
 		kieSession.delete(f);
 
