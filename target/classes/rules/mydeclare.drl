@@ -8,18 +8,27 @@ import function com.my.function.Foo.hello2
 import java.util.Date
 
 declare Person
-    name : String
-    age : Integer
+    name : String 
+    age : Integer 
     address : Address
 end
 
+declare Student
+    firstName : String @key
+    lastName : String @key
+    age : int
+end
 
 rule "Using a declare"
 lock-on-active
     when
        person: Person(name == "Bob")
     then
-        
-          System.out.println(hello2("Using a declare"));
+        Person mark = new Person();
+        Student stu = new Student();
+        mark.setName("Mark");
+        System.out.println(hello2("Using a declare"));
+        System.out.println(hello2(mark.getName()));
+        System.out.println(hello2(stu.getFirstName()));
 end
 
