@@ -13,6 +13,11 @@ declare Person
     address : Address
 end
 
+declare Student
+    firstName : String @key
+    lastName : String @key
+    age : int
+end
 
 rule "Using a declare"
 lock-on-active
@@ -20,8 +25,10 @@ lock-on-active
        person: Person(name == "Bob")
     then
         Person mark = new Person();
+        Student stu = new Student();
         mark.setName("Mark");
         System.out.println(hello2("Using a declare"));
-       System.out.println(hello2(mark.getName()));
+        System.out.println(hello2(mark.getName()));
+        System.out.println(hello2(stu.getFirstName()));
 end
 
