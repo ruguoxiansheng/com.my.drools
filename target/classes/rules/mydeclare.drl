@@ -24,11 +24,17 @@ lock-on-active
     when
        person: Person(name == "Bob")
     then
+    	// rule类可以在rule中使用
         Person mark = new Person();
+        // @key的使用
         Student stu = new Student();
+        // Java类可以在rule中使用
+        Address add = new Address();
+        add.setStreet("qilinglu");
         mark.setName("Mark");
         System.out.println(hello2("Using a declare"));
         System.out.println(hello2(mark.getName()));
         System.out.println(hello2(stu.getFirstName()));
+        System.out.println(hello2(add.getStreet()));
 end
 

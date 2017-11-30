@@ -1,0 +1,30 @@
+package rules
+
+import com.my.model.Address;
+import com.my.model.AddressCheckResult;
+
+import function com.my.function.Foo.hello2
+
+import java.util.Date
+
+declare PersonMeta
+    @author( Bob )
+    @dateOfCreation( 01-Feb-2009 )
+
+    name : String @key @maxLength(4)
+    dateOfBirth : Date
+    address : Address
+end
+
+rule "mymetadata"
+lock-on-active
+    when
+    
+    then
+    	// rule类可以在rule中使用
+        PersonMeta personMeta = new PersonMeta();
+        personMeta.setName("TOMANDJERRYJFIEFIOJOAJEIFJEIOJFOIEFJOEJOJFOEJFIEJFIFJOIEJFOIEJOIJFOEJ");
+        System.out.println(hello2(personMeta.getName()));
+        
+end
+

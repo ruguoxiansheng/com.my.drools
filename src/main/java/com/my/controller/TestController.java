@@ -116,14 +116,10 @@ public class TestController {
 	@ResponseBody
 	@RequestMapping("/declarePerson")
 	public void declarePerson() {
-		
+		// 在rule中声明的类，到Java 中使用。
 		// get a reference to a knowledge base with a declared type:
-//		KieBase kbase = new ;
-		
 		// get the declared FactType
-		FactType personType = kieBase.getFactType( "rules",
-		                                         "Person" );
-
+		FactType personType = kieBase.getFactType( "rules","Person" );
 		// handle the type as necessary:
 		// create instances:
 		Object bob = new Object();
@@ -134,12 +130,8 @@ public class TestController {
 		}
 
 		// set attributes values
-		personType.set( bob,
-		                "name",
-		                "Bob" );
-		personType.set( bob,
-		                "age",
-		                42 );
+		personType.set( bob,"name","Bob" );
+		personType.set( bob, "age",42 );
 
 		// insert fact into a session
 		FactHandle f = kieSession.insert( bob );
@@ -149,8 +141,18 @@ public class TestController {
 		String name = (String) personType.get( bob, "name" );
 		int age = (int) personType.get( bob, "age" );
 		
+		// 在规则文件中创建了address对象在Java中能直接获得吗？
+		
 		System.out.println("触发了" + ruleFiredCount + "条规则");
 		kieSession.delete(f);
+
+	}
+	
+	@ResponseBody
+	@RequestMapping("/metadata")
+	public void metadata() {
+		int ruleFiredCount = kieSession.fireAllRules();
+		System.out.println("触发了" + ruleFiredCount + "条规则");
 
 	}
 }
