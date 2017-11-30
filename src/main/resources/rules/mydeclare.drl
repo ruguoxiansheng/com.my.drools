@@ -27,7 +27,7 @@ lock-on-active
     	// rule类可以在rule中使用
         Person mark = new Person();
         // @key的使用
-        Student stu = new Student();
+        Student stu = new Student("张","san",23);
         // Java类可以在rule中使用
         Address add = new Address();
         add.setStreet("qilinglu");
